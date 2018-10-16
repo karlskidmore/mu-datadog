@@ -1,0 +1,24 @@
+Parameters:
+  DatadogApiKey:
+    Description: Datadog API Key
+    Type:  "AWS::SSM::Parameter::Value<String>"
+    Default: DatadogApiKey
+    NoEcho: true
+  DatadogAgentVersion:
+    Description: Datadog Agent Version
+    Type:  String
+    Default: "latest"
+Resources:
+  MicroserviceTaskDefinition:
+    Properties:
+      ContainerDefinitions:
+      - Name: datadog-agent
+        Image: 
+          Fn::Sub: "datadog/agent:${DatadogAgentVersion}"
+        Essential: 'true'
+        Environment:
+        - Name: DD_API_KEY
+          Value: 
+            Ref: DatadogApiKey
+        - Name: ECS_FARGATE
+          Value: 'true'

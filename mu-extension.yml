@@ -1,0 +1,4 @@
+name: datadog
+version: '1.0'
+
+templateUpdateMode: merge
